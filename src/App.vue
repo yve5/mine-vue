@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Mine from "./components/Mine.vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import Mine from "./features/mine/components/Mine.vue";
+import HelloWorld from "./features/hello/components/HelloWorld.vue";
 </script>
 
 <template>
-  <HelloWorld msg="Hello, John!" />
   <Mine />
+  <HelloWorld msg="Hello!!!" />
 </template>

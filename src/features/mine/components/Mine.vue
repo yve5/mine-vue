@@ -4,8 +4,6 @@
 
     <button @click="resetGame">Restart</button>
 
-    <p v-if="gameOver">💥 Game Over</p>
-    <p v-if="won">🎉 You Win!</p>
     <div class="grid" :style="{ gridTemplateColumns: 'repeat(' + cols + ', 30px)' }">
       <div
         v-for="(tile, index) in tiles"
@@ -16,8 +14,8 @@
           flagged: tile.flagged,
           mine: tile.revealed && tile.mine,
         }"
-        @click.left="revealTile(index)"
-        @contextmenu.prevent="toggleFlag(index)"
+        @click="() => revealTile(index)"
+        @contextmenu.prevent="() => toggleFlag(index)"
       >
         <span v-if="tile.revealed && !tile.mine && tile.adjacentMines > 0">
           {{ tile.adjacentMines }}
@@ -26,36 +24,42 @@
         <span v-if="tile.revealed && tile.mine">💣</span>
       </div>
     </div>
+
+    <p v-if="gameOver">💥 Game Over</p>
+    <p v-if="won">🎉 You Win!</p>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 
+interface Tile {
+  mine: boolean;
+  revealed: boolean;
+  flagged: boolean;
+  adjacentMines: number;
+}
+
 const rows = 10;
 const cols = 10;
 const mineCount = 15;
 
-const tiles = ref([]);
+const tiles = ref<Tile[]>([]);
 const gameOver = ref(false);
 const won = ref(false);
 
-function generateGrid() {
-  const grid = Array(rows * cols)
-    .fill()
-    .map(() => ({
-      mine: false,
-      revealed: false,
-      flagged: false,
-      adjacentMines: 0,
-    }));
+const generateGrid: Tile[] = () => {
+  const grid: Tile[] = Array.from({ length: rows * cols }, () => ({
+    mine: false,
+    revealed: false,
+    flagged: false,
+    adjacentMines: 0,
+  }));
 
-  // Place mines
+  // Place mines randomly
   let placed = 0;
-
   while (placed < mineCount) {
     const index = Math.floor(Math.random() * grid.length);
-
     if (!grid[index].mine) {
       grid[index].mine = true;
       placed++;
@@ -66,8 +70,8 @@ function generateGrid() {
   for (let i = 0; i < grid.length; i++) {
     const x = i % cols;
     const y = Math.floor(i / cols);
-    let count = 0;
 
+    let count = 0;
     for (let dy = -1; dy <= 1; dy++) {
       for (let dx = -1; dx <= 1; dx++) {
         if (dx === 0 && dy === 0) continue;
@@ -81,13 +85,14 @@ function generateGrid() {
         }
       }
     }
+
     grid[i].adjacentMines = count;
   }
 
   return grid;
-}
+};
 
-function revealTile(index) {
+const revealTile: void = (index: number) => {
   const tile = tiles.value[index];
   if (tile.revealed || tile.flagged || gameOver.value) return;
 
@@ -100,7 +105,7 @@ function revealTile(index) {
   }
 
   if (tile.adjacentMines === 0) {
-    // Reveal neighbors
+    // Reveal neighboring tiles recursively
     const x = index % cols;
     const y = Math.floor(index / cols);
 
@@ -118,50 +123,55 @@ function revealTile(index) {
   }
 
   checkWin();
-}
+};
 
-function revealAllMines() {
+const toggleFlag: void = (index: number) => {
+  const tile = tiles.value[index];
+
+  if (tile.revealed || gameOver.value) return;
+
+  tile.flagged = !tile.flagged;
+};
+
+const revealAllMines: void = () => {
   tiles.value.forEach((tile) => {
     if (tile.mine) tile.revealed = true;
   });
-}
+};
 
-function toggleFlag(index) {
-  const tile = tiles.value[index];
-  if (tile.revealed || gameOver.value) return;
-  tile.flagged = !tile.flagged;
-}
-
-function checkWin() {
+const checkWin: void = () => {
   if (gameOver.value) return;
+
   const unrevealed = tiles.value.filter((t) => !t.revealed);
 
   if (unrevealed.length === mineCount) {
     won.value = true;
     revealAllMines();
   }
-}
+};
 
-function resetGame() {
+const resetGame: void = () => {
   tiles.value = generateGrid();
   gameOver.value = false;
   won.value = false;
-}
+};
 
 resetGame();
 </script>
 
-<style>
+<style scoped>
 .minesweeper {
   font-family: sans-serif;
   text-align: center;
 }
+
 .grid {
   display: grid;
   gap: 2px;
   margin-top: 10px;
   justify-content: center;
 }
+
 .tile {
   width: 30px;
   height: 30px;
@@ -173,13 +183,16 @@ resetGame();
   cursor: pointer;
   font-weight: bold;
 }
+
 .tile.revealed {
   background: #eee;
   cursor: default;
 }
+
 .tile.flagged {
   background: #fdd;
 }
+
 .tile.mine {
   background: #f99;
 }
