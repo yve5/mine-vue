@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Mine from "./features/mine/components/Mine.vue";
+import Mine from "./features/mine/index.vue";
 import HelloWorld from "./features/hello/components/HelloWorld.vue";
 </script>
 

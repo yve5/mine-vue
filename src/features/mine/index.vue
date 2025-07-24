@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Mine from "./components/Mine.vue";
+import Minesweeper from "./components/Minesweeper.vue";
 </script>
 
 <template>
-  <Mine />
+  <Minesweeper />
 </template>
