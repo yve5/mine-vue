@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import type { Tile } from "../types/types";
+import type { Tile } from "../resources/types";
 
 export function useMinesweeper(rows = 10, cols = 10, mineCount = 15) {
   const tiles = ref<Tile[]>([]);
@@ -27,6 +27,7 @@ export function useMinesweeper(rows = 10, cols = 10, mineCount = 15) {
       const x = i % cols;
       const y = Math.floor(i / cols);
       let count = 0;
+
       for (let dy = -1; dy <= 1; dy++) {
         for (let dx = -1; dx <= 1; dx++) {
           if (dx === 0 && dy === 0) continue;

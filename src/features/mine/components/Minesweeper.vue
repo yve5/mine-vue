@@ -2,29 +2,30 @@
   <div class="minesweeper">
     <h1>Minesweeper</h1>
     <button @click="resetGame">Restart</button>
-    <p v-if="gameOver">💥 Game Over</p>
-    <p v-if="won">🎉 You Win!</p>
 
     <div class="grid" :style="{ gridTemplateColumns: `repeat(${cols}, 30px)` }">
       <Tile
-        v-for="(tile, index) in tiles"
         :key="index"
         :tile="tile"
-        @reveal="() => revealTile(index)"
+        v-for="(tile, index) in tiles"
         @flag="() => toggleFlag(index)"
+        @reveal="() => revealTile(index)"
       />
     </div>
+
+    <p v-if="gameOver">💥 Game Over</p>
+    <p v-if="won">🎉 You Win!</p>
   </div>
 </template>
 
 <script setup lang="ts">
 import Tile from "../nested/Tile.vue";
-import { useMinesweeper } from "../composables/useMinesweeper";
+import { useMinesweeper } from "../hooks/useMinesweeper";
 
 const { tiles, rows, cols, gameOver, won, revealTile, toggleFlag, resetGame } = useMinesweeper();
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .minesweeper {
   font-family: sans-serif;
   text-align: center;
