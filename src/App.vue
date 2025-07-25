@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Mine from "@/features/mine";
-import HelloWorld from "@/features/hello/components/HelloWorld.vue";
+import HelloWorld from "@/features/hello";
 </script>
 
 <template>

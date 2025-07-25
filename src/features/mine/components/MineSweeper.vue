@@ -19,21 +19,22 @@
 </template>
 
 <script setup lang="ts">
-import Tile from "../nested/Tile.vue";
+import Tile from "../nested/MineTile.vue";
 import { useMinesweeper } from "../hooks/useMinesweeper";
 
-const { tiles, rows, cols, gameOver, won, revealTile, toggleFlag, resetGame } = useMinesweeper();
+const { tiles, cols, gameOver, won, revealTile, toggleFlag, resetGame } = useMinesweeper();
 </script>
 
 <style scoped lang="scss">
-.minesweeper {
-  font-family: sans-serif;
-  text-align: center;
-}
-.grid {
-  display: grid;
-  gap: 2px;
-  margin-top: 10px;
-  justify-content: center;
-}
+  .minesweeper {
+    font-family: sans-serif;
+    text-align: center;
+  }
+
+  .grid {
+    display: grid;
+    gap: 2px;
+    margin-top: 10px;
+    justify-content: center;
+  }
 </style>

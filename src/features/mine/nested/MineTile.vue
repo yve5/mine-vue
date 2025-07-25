@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Tile } from "../types/types";
+import type { Tile } from "../resources/types";
 
 defineProps<{
   tile: Tile;
