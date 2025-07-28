@@ -39,28 +39,30 @@ function onToggleFlag() {
 </script>
 
 <style scoped lang="scss">
-.tile {
-  width: 30px;
-  height: 30px;
-  background: #ccc;
-  border: 1px solid #888;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-weight: bold;
 
-  &.revealed {
-    background: #eee;
-    cursor: default;
-  }
+  .tile {
+    width: 30px;
+    height: 30px;
+    background: #ccc;
+    border: 1px solid #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
 
-  &.flagged {
-    background: #fdd;
-  }
+    &.revealed {
+      background: #eee;
+      cursor: default;
+    }
 
-  &.mine {
-    background: #f99;
+    &.flagged {
+      background: #fdd;
+    }
+
+    &.mine {
+      background: #f99;
+    }
   }
-}
+  
 </style>

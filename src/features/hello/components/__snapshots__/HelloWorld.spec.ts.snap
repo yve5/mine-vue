@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`HelloWorld > should render the snapshot correctly 1`] = `
+"<div data-v-b3abb013="" class="greetings">
+  <h1 data-v-b3abb013="" class="green">Hello Test</h1>
+  <h3 data-v-b3abb013=""> You’ve successfully created a project with <a data-v-b3abb013="" href="https://vite.dev/" target="_blank" rel="noopener">Vite</a> + <a data-v-b3abb013="" href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>. </h3>
+  <p data-v-b3abb013="">Current Count: 0</p>
+</div>
+<button data-v-b3abb013="" type="button">Increment</button>"
+`;

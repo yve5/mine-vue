@@ -1,5 +1,5 @@
-import { ref } from "vue";
 import type { Tile } from "../resources/types";
+import { ref } from "vue";
 
 export function useMinesweeper(rows = 10, cols = 10, mineCount = 15) {
   const tiles = ref<Tile[]>([]);

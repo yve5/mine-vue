@@ -20,12 +20,13 @@
 
 <script setup lang="ts">
 import Tile from "../nested/MineTile.vue";
-import { useMinesweeper } from "../hooks/useMinesweeper";
+import { useMinesweeper } from "../composables/useMinesweeper";
 
 const { tiles, cols, gameOver, won, revealTile, toggleFlag, resetGame } = useMinesweeper();
 </script>
 
 <style scoped lang="scss">
+
   .minesweeper {
     font-family: sans-serif;
     text-align: center;
@@ -37,4 +38,5 @@ const { tiles, cols, gameOver, won, revealTile, toggleFlag, resetGame } = useMin
     margin-top: 10px;
     justify-content: center;
   }
+  
 </style>
