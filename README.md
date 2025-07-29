@@ -5,7 +5,6 @@ This template should help get you started developing with Vue 3 in Vite.
 ## To do
 
 - stores
-- gh-page
 - unit tests
 
 ## Recommended IDE Setup

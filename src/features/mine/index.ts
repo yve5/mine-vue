@@ -1,3 +1,3 @@
-import MineSweeper from "./components/MineSweeper.vue";
+import MineSweeper from './components/MineSweeper.vue';
 
 export default MineSweeper;

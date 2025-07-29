@@ -13,7 +13,7 @@
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "start": "vite",
-    "test": "vitest run --coverage",
+    "test": "vitest --coverage",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

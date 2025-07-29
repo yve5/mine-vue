@@ -1,11 +1,10 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { mount, VueWrapper } from "@vue/test-utils";
-import { createPinia, setActivePinia } from "pinia";
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { createPinia, setActivePinia } from 'pinia';
 
-import MinesweeperComponent from "./MineSweeper.vue";
+import MineSweeper from './MineSweeper.vue';
 
-// Mock the useMinesweeper composable
-vi.mock("../composables/useMinesweeper", () => ({
+vi.mock('../composables/useMinesweeper', () => ({
   useMinesweeper: vi.fn(() => ({
     tiles: Array(100).fill({
       mine: false,
@@ -22,80 +21,77 @@ vi.mock("../composables/useMinesweeper", () => ({
   })),
 }));
 
-describe("MinesweeperComponent", () => {
+describe('MineSweeper', () => {
   let wrapper: VueWrapper;
 
   beforeEach(() => {
-    // Create a fresh Pinia instance
     const pinia = createPinia();
     setActivePinia(pinia);
 
-    // Mount the component
-    wrapper = mount(MinesweeperComponent, {
+    wrapper = mount(MineSweeper, {
       global: {
         plugins: [pinia],
       },
     });
   });
 
-  describe("Rendering", () => {
-    it.skip("renders the component title", () => {
-      const title = wrapper.find("h1");
-      expect(title.text()).toBe("Minesweeper");
+  describe('Rendering', () => {
+    it.skip('should render the snapshot correctly', () => {
+      expect(wrapper.html()).toMatchSnapshot();
     });
 
-    it.skip("renders the restart button", () => {
-      const restartButton = wrapper.find("button");
-      expect(restartButton.text()).toBe("Restart");
+    it.skip('should render the component title', () => {
+      const title = wrapper.find('h1');
+      expect(title.text()).toBe('Minesweeper');
     });
 
-    it.skip("renders the grid with correct number of tiles", () => {
-      const tiles = wrapper.findAllComponents({ name: "Tile" });
-      expect(tiles.length).toBe(100);
+    it.skip('should render the restart button', () => {
+      const restartButton = wrapper.find('button');
+      expect(restartButton.text()).toBe('Restart');
     });
 
-    it.skip("sets grid template columns dynamically", () => {
-      const grid = wrapper.find(".grid");
-      expect(grid.attributes("style")).toBe("grid-template-columns: repeat(10, 30px);");
+    it.skip('should set grid template columns dynamically', () => {
+      const grid = wrapper.find('.grid');
+      expect(grid.attributes('style')).toBe('grid-template-columns: repeat(10, 30px);');
     });
   });
 
-  describe("Game State Messages", () => {
-    it.skip("does not show game over message by default", () => {
-      const gameOverMessage = wrapper.findAll("p").filter((w) => w.text() === "💥 Game Over");
+  describe('Game State Messages', () => {
+    it.skip('does not show game over message by default', () => {
+      const gameOverMessage = wrapper.findAll('p').filter(({ text }) => text() === '💥 Game Over');
       expect(gameOverMessage.length).toBe(0);
     });
 
-    it.skip("does not show win message by default", () => {
-      const winMessage = wrapper.findAll("p").filter((w) => w.text() === "🎉 You Win!");
+    it.skip('does not show win message by default', () => {
+      const winMessage = wrapper.findAll('p').filter(({ text }) => text() === '🎉 You Win!');
       expect(winMessage.length).toBe(0);
     });
 
-    it.skip("shows game over message when gameOver is true", async () => {
-      // Update the mock to simulate game over
-      vi.mocked(MinesweeperComponent.__moduleResolver.useMinesweeper).mockReturnValueOnce({
-        ...vi.mocked(MinesweeperComponent.__moduleResolver.useMinesweeper)(),
-        gameOver: true,
-      });
+    it.skip('shows game over message when gameOver is true', async () => {
+      // vi.mocked(MineSweeper.__moduleResolver.useMinesweeper).mockReturnValueOnce({
+      //   ...vi.mocked(MineSweeper.__moduleResolver.useMinesweeper)(),
+      //   gameOver: true,
+      // });
 
-      // Remount the component
-      wrapper = mount(MinesweeperComponent);
+      wrapper = mount(MineSweeper);
 
-      const gameOverMessage = wrapper.findAll("p").filter((w) => w.text() === "💥 Game Over");
+      const gameOverMessage = wrapper.findAll('p').filter(({ text }) => text() === '💥 Game Over');
+
       expect(gameOverMessage.length).toBe(1);
     });
 
-    it.skip("shows win message when won is true", async () => {
+    it.skip('shows win message when won is true', async () => {
       // Update the mock to simulate winning
-      vi.mocked(MinesweeperComponent.__moduleResolver.useMinesweeper).mockReturnValueOnce({
-        ...vi.mocked(MinesweeperComponent.__moduleResolver.useMinesweeper)(),
+      vi.mocked(MineSweeper.__moduleResolver.useMinesweeper).mockReturnValueOnce({
+        ...vi.mocked(MineSweeper.__moduleResolver.useMinesweeper)(),
         won: true,
       });
 
       // Remount the component
-      wrapper = mount(MinesweeperComponent);
+      wrapper = mount(MineSweeper);
 
-      const winMessage = wrapper.findAll("p").filter((w) => w.text() === "🎉 You Win!");
+      const winMessage = wrapper.findAll('p').filter(({ text }) => text() === '🎉 You Win!');
+
       expect(winMessage.length).toBe(1);
     });
   });
