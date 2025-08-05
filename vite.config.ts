@@ -17,10 +17,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  test: {
-    coverage: {
-      ...configDefaults.coverage,
-      exclude: [...(configDefaults.coverage.exclude ?? []), 'src/main.ts'],
-    },
-  },
 });

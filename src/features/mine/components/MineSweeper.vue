@@ -5,9 +5,9 @@
 
     <div class="grid" :style="{ gridTemplateColumns: `repeat(${cols}, 30px)` }">
       <Tile
+        v-for="(tile, index) in tiles"
         :key="index"
         :tile="tile"
-        v-for="(tile, index) in tiles"
         @flag="() => toggleFlag(index)"
         @reveal="() => revealTile(index)"
       />
@@ -28,13 +28,13 @@ const { tiles, cols, gameOver, won, revealTile, toggleFlag, resetGame } = useMin
 <style scoped lang="scss">
 
   .minesweeper {
-    font-family: sans-serif;
     text-align: center;
+    font-family: sans-serif;
   }
 
   .grid {
-    display: grid;
     gap: 2px;
+    display: grid;
     margin-top: 10px;
     justify-content: center;
   }

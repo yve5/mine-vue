@@ -22,11 +22,13 @@ export function useMinesweeper(rows = 10, cols = 10, mineCount = 15) {
     if (tile.adjacentMines === 0) {
       const x = index % cols;
       const y = Math.floor(index / cols);
-      for (let dy = -1; dy <= 1; dy++) {
-        for (let dx = -1; dx <= 1; dx++) {
+
+      for (let dy = -1; dy <= 1; dy += 1) {
+        for (let dx = -1; dx <= 1; dx += 1) {
           const nx = x + dx;
           const ny = y + dy;
           const ni = ny * cols + nx;
+
           if (nx >= 0 && nx < cols && ny >= 0 && ny < rows && ni !== index) {
             revealTile(ni);
           }

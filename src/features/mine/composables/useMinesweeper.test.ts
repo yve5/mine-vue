@@ -50,8 +50,8 @@ describe('useMinesweeper', () => {
       const x = emptyTileIndex % game.cols;
       const y = Math.floor(emptyTileIndex / game.cols);
 
-      for (let dy = -1; dy <= 1; dy++) {
-        for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy += 1) {
+        for (let dx = -1; dx <= 1; dx += 1) {
           const nx = x + dx;
           const ny = y + dy;
           const ni = ny * game.cols + nx;

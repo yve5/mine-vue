@@ -23,7 +23,6 @@ describe('MineTile', () => {
   describe('Rendering', () => {
     it('renders default tile state', () => {
       const wrapper = createWrapper();
-
       expect(wrapper.classes()).toContain('tile');
       expect(wrapper.classes()).not.toContain('revealed');
       expect(wrapper.classes()).not.toContain('flagged');
