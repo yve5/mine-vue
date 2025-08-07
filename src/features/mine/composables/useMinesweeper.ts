@@ -36,7 +36,12 @@ export function useMinesweeper(rows = 10, cols = 10, mineCount = 15) {
       }
     }
 
-    checkWin();
+    const unrevealed = tiles.value.filter(({ revealed }) => !revealed);
+
+    if (unrevealed.length === mineCount) {
+      won.value = true;
+      revealAllMines();
+    }
   }
 
   function toggleFlag(index: number): void {
@@ -53,19 +58,8 @@ export function useMinesweeper(rows = 10, cols = 10, mineCount = 15) {
     });
   }
 
-  function checkWin(): void {
-    if (gameOver.value) return;
-
-    const unrevealed = tiles.value.filter(({ revealed }) => !revealed);
-
-    if (unrevealed.length === mineCount) {
-      won.value = true;
-      revealAllMines();
-    }
-  }
-
   function resetGame(): void {
-    tiles.value = generateGrid(10, 10, 15);
+    tiles.value = generateGrid(rows, cols, mineCount);
     gameOver.value = false;
     won.value = false;
   }
@@ -73,13 +67,13 @@ export function useMinesweeper(rows = 10, cols = 10, mineCount = 15) {
   resetGame();
 
   return {
-    rows,
+    won,
     cols,
+    rows,
     tiles,
     gameOver,
-    won,
+    resetGame,
     revealTile,
     toggleFlag,
-    resetGame,
   };
 }

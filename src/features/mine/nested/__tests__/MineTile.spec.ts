@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 
-import MineTile from './MineTile.vue';
+import MineTile from '../MineTile.vue';
 
 describe('MineTile', () => {
   const createWrapper = (tileData = {}) => {

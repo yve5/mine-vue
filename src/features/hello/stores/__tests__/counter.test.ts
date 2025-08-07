@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
-import { useCounterStore } from './counter';
+import { useCounterStore } from '../counter';
 
 describe('Counter Store', () => {
   let store: ReturnType<typeof useCounterStore>;

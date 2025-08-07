@@ -20,6 +20,7 @@ defineProps<{
 }>();
 
 const counter = useCounterStore();
+
 </script>
 
 <style scoped lang="scss">

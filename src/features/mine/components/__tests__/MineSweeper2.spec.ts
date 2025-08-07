@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
 // import { createPinia, setActivePinia } from 'pinia';
 
-import MineSweeper from './MineSweeper.vue';
+import MineSweeper from '../MineSweeper.vue';
 
 describe('MineSweeper', () => {
   let wrapper: VueWrapper;

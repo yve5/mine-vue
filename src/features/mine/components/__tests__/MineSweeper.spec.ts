@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
 
-import MineSweeper from './MineSweeper.vue';
+import MineSweeper from '../MineSweeper.vue';
 
 vi.mock('../composables/useMinesweeper', () => ({
   useMinesweeper: vi.fn(() => ({

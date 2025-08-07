@@ -13,7 +13,7 @@
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "start": "vite",
-    "test": "vitest",
+    "test": "vitest --coverage",
     "aze": "eslint --print-config file.js",
     "deploy": "gh-pages -d dist"
   },

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { useMinesweeper } from './useMinesweeper';
+import { useMinesweeper } from '../useMinesweeper';
 
 describe('useMinesweeper', () => {
   let game: ReturnType<typeof useMinesweeper>;
@@ -9,40 +9,40 @@ describe('useMinesweeper', () => {
   });
 
   describe('Initial Game Setup', () => {
-    it.skip('should create a grid with correct dimensions', () => {
+    it('should create a grid with correct dimensions', () => {
       expect(game.tiles.value.length).toBe(25);
     });
 
-    it.skip('should have correct number of mines', () => {
+    it('should have correct number of mines', () => {
       const mineCount = game.tiles.value.filter((tile) => tile.mine).length;
       expect(mineCount).toBe(5);
     });
 
-    it.skip('should initialize game state correctly', () => {
+    it('should initialize game state correctly', () => {
       expect(game.gameOver.value).toBe(false);
       expect(game.won.value).toBe(false);
     });
   });
 
   describe('Tile Revealing', () => {
-    it.skip('should reveal a non-mine tile', () => {
-      const nonMineTileIndex = game.tiles.value.findIndex((tile) => !tile.mine);
+    it('should reveal a non-mine tile', () => {
+      const nonMineTileIndex = game.tiles.value.findIndex(({ mine }) => !mine);
       game.revealTile(nonMineTileIndex);
 
       expect(game.tiles.value[nonMineTileIndex].revealed).toBe(true);
     });
 
-    it.skip('should end game when revealing a mine', () => {
-      const mineTileIndex = game.tiles.value.findIndex((tile) => tile.mine);
+    it('should end game when revealing a mine', () => {
+      const mineTileIndex = game.tiles.value.findIndex(({ mine }) => mine);
       game.revealTile(mineTileIndex);
 
       expect(game.gameOver.value).toBe(true);
       expect(game.tiles.value[mineTileIndex].revealed).toBe(true);
     });
 
-    it.skip('should recursively reveal adjacent empty tiles', () => {
+    it('should recursively reveal adjacent empty tiles', () => {
       const emptyTileIndex = game.tiles.value.findIndex(
-        (tile) => tile.adjacentMines === 0 && !tile.mine,
+        ({ adjacentMines, mine }) => adjacentMines === 0 && !mine,
       );
 
       game.revealTile(emptyTileIndex);
@@ -65,7 +65,7 @@ describe('useMinesweeper', () => {
   });
 
   describe('Flagging', () => {
-    it.skip('should toggle flag on a tile', () => {
+    it('should toggle flag on a tile', () => {
       const tileIndex = 0;
       const initialFlagState = game.tiles.value[tileIndex].flagged;
 
@@ -76,7 +76,7 @@ describe('useMinesweeper', () => {
       expect(game.tiles.value[tileIndex].flagged).toBe(initialFlagState);
     });
 
-    it.skip('should not flag a revealed tile', () => {
+    it('should not flag a revealed tile', () => {
       const tileIndex = 0;
       game.revealTile(tileIndex);
 
@@ -84,7 +84,7 @@ describe('useMinesweeper', () => {
       expect(game.tiles.value[tileIndex].flagged).toBe(false);
     });
 
-    it.skip('should reveal all mines when game is won', () => {
+    it('should reveal all mines when game is won', () => {
       game.tiles.value.forEach((tile, index) => {
         if (!tile.mine) {
           game.revealTile(index);
@@ -99,7 +99,7 @@ describe('useMinesweeper', () => {
       });
     });
 
-    it.skip('should reveal all mines when game is lost', () => {
+    it('should reveal all mines when game is lost', () => {
       const mineTileIndex = game.tiles.value.findIndex((tile) => tile.mine);
       game.revealTile(mineTileIndex);
 
@@ -114,7 +114,7 @@ describe('useMinesweeper', () => {
   });
 
   describe('Game Reset', () => {
-    it.skip('should reset the game to initial state', () => {
+    it('should reset the game to initial state', () => {
       // Modify game state
       const tileIndex = 0;
       game.revealTile(tileIndex);
@@ -128,27 +128,25 @@ describe('useMinesweeper', () => {
       expect(game.won.value).toBe(false);
 
       // Check tiles are reset
-      game.tiles.value.forEach((tile) => {
-        expect(tile.revealed).toBe(false);
-        expect(tile.flagged).toBe(false);
+      game.tiles.value.forEach(({ flagged, revealed }) => {
+        expect(revealed).toBe(false);
+        expect(flagged).toBe(false);
       });
     });
 
-    //   it("should regenerate mines on reset", () => {
-    //     const initialMines = game.tiles.value.filter((tile) => tile.mine);
+    it('should regenerate mines on reset', () => {
+      game.resetGame();
 
-    //     game.resetGame();
+      const newMines = game.tiles.value.filter(({ mine }) => mine);
 
-    //     const newMines = game.tiles.value.filter((tile) => tile.mine);
-
-    //     // While technically possible to have the same mine configuration,
-    //     // the probability is extremely low
-    //     expect(newMines.length).toBe(5);
-    //   });
+      // While technically possible to have the same mine configuration,
+      // the probability is extremely low
+      expect(newMines.length).toBe(5);
+    });
   });
 
   describe('Edge Cases', () => {
-    it.skip('should not reveal already revealed tiles', () => {
+    it('should not reveal already revealed tiles', () => {
       const tileIndex = 0;
       game.revealTile(tileIndex);
 
@@ -158,7 +156,7 @@ describe('useMinesweeper', () => {
       expect(game.tiles.value[tileIndex].revealed).toBe(initialRevealedState);
     });
 
-    it.skip('should not reveal or flag tiles when game is over', () => {
+    it('should not reveal or flag tiles when game is over', () => {
       const mineTileIndex = game.tiles.value.findIndex((tile) => tile.mine);
       game.revealTile(mineTileIndex);
 
@@ -176,7 +174,7 @@ describe('useMinesweeper', () => {
       expect(game.tiles.value[nonRevealedTileIndex].flagged).toBe(false);
     });
 
-    it.skip('should handle custom grid sizes', () => {
+    it('should handle custom grid sizes', () => {
       const customGame = useMinesweeper(8, 8, 10);
 
       expect(customGame.tiles.value.length).toBe(64); // 8x8 grid
