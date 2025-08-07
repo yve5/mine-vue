@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 import { mount } from '@vue/test-utils';
 
-import HelloWorld from '../HelloWorld.vue';
+import HelloWorld from '../../index.ts';
 
 describe('HelloWorld', () => {
   let wrapper: ReturnType<typeof mount>;
@@ -31,7 +31,6 @@ describe('HelloWorld', () => {
     expect(links.length).toBe(2);
 
     const [viteLink, vueLink] = links;
-
     expect(viteLink.attributes('href')).toBe('https://vite.dev/');
     expect(vueLink.attributes('href')).toBe('https://vuejs.org/');
   });

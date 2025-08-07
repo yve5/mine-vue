@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
 
-import MineSweeper from '../MineSweeper.vue';
+import MineSweeper from '../../index.ts';
 
 vi.mock('../composables/useMinesweeper', () => ({
   useMinesweeper: vi.fn(() => ({
@@ -36,21 +36,21 @@ describe('MineSweeper', () => {
   });
 
   describe('Rendering', () => {
-    it.skip('should render the snapshot correctly', () => {
+    it('should render the snapshot correctly', () => {
       expect(wrapper.html()).toMatchSnapshot();
     });
 
-    it.skip('should render the component title', () => {
+    it('should render the component title', () => {
       const title = wrapper.find('h1');
       expect(title.text()).toBe('Minesweeper');
     });
 
-    it.skip('should render the restart button', () => {
+    it('should render the restart button', () => {
       const restartButton = wrapper.find('button');
       expect(restartButton.text()).toBe('Restart');
     });
 
-    it.skip('should set grid template columns dynamically', () => {
+    it('should set grid template columns dynamically', () => {
       const grid = wrapper.find('.grid');
       expect(grid.attributes('style')).toBe('grid-template-columns: repeat(10, 30px);');
     });
