@@ -40,7 +40,7 @@ describe('useMinesweeper', () => {
       expect(game.tiles.value[mineTileIndex].revealed).toBe(true);
     });
 
-    it.skip('should recursively reveal adjacent empty tiles', () => {
+    it('should recursively reveal adjacent empty tiles', () => {
       const emptyTileIndex = game.tiles.value.findIndex(
         ({ adjacentMines, mine }) => adjacentMines === 0 && !mine,
       );

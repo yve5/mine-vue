@@ -14,7 +14,6 @@
     "format": "prettier --write src/",
     "start": "vite",
     "test": "vitest --coverage",
-    "aze": "eslint --print-config file.js",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

@@ -7,7 +7,7 @@ export function useMinesweeper(rows = 10, cols = 10, mineCount = 15) {
   const gameOver = ref(false);
   const won = ref(false);
 
-  function revealTile(index: number): void {
+  const revealTile = (index: number): void => {
     const tile = tiles.value[index];
     if (tile.revealed || tile.flagged || gameOver.value) return;
 
@@ -42,27 +42,27 @@ export function useMinesweeper(rows = 10, cols = 10, mineCount = 15) {
       won.value = true;
       revealAllMines();
     }
-  }
+  };
 
-  function toggleFlag(index: number): void {
+  const toggleFlag = (index: number): void => {
     const tile = tiles.value[index];
 
     if (tile.revealed || gameOver.value) return;
 
     tile.flagged = !tile.flagged;
-  }
+  };
 
-  function revealAllMines(): void {
+  const revealAllMines = (): void => {
     tiles.value.forEach((tile) => {
       if (tile.mine) tile.revealed = true;
     });
-  }
+  };
 
-  function resetGame(): void {
+  const resetGame = (): void => {
     tiles.value = generateGrid(rows, cols, mineCount);
     gameOver.value = false;
     won.value = false;
-  }
+  };
 
   resetGame();
 
